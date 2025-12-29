@@ -5,8 +5,8 @@ from typing import Dict, Any, Optional, Tuple
 from PySide6.QtCore import QThread, Signal
 from PIL import Image
 from pillow_heif import register_heif_opener
-from ai_service import AIService
-from config_manager import ConfigManager
+from .ai_service import AIService
+from .config_manager import ConfigManager
 
 # 注册 HEIF 图片格式支持
 register_heif_opener()

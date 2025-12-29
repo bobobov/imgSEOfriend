@@ -1,0 +1,17 @@
+# Image SEO Optimizer - Dependencies
+
+# GUI Framework
+PySide6>=6.0.0
+
+# HTTP Requests
+requests>=2.25.0
+
+# Image Processing
+Pillow>=9.0.0
+pillow-heif>=0.10.0
+
+# Encryption
+cryptography>=3.4.0
+
+# Optional: for better performance
+urllib3>=1.26.0

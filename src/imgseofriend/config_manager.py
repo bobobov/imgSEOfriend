@@ -126,7 +126,7 @@ class ConfigManager:
         """获取 System Prompt"""
         default_prompt = """Role: You are a Professional Image SEO Specialist and Accessibility Expert.
 
-Task: Generate SEO-optimized Title and Alternative Text (Alt Text) for processed images.
+Task: Generate SEO-optimized Title and Alternative Text (Alt Text) for processed images in English language.
 
 Input: {keyword}
 

@@ -3,8 +3,8 @@ from PySide6.QtWidgets import (QDialog, QVBoxLayout, QHBoxLayout, QFormLayout,
                                QGroupBox, QLabel, QSpinBox, QSlider)
 from PySide6.QtCore import Qt, Signal
 from PySide6.QtGui import QFont
-from config_manager import ConfigManager
-from ai_service import AIService
+from .config_manager import ConfigManager
+from .ai_service import AIService
 
 
 class SettingsDialog(QDialog):

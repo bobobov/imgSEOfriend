@@ -2,7 +2,7 @@ import requests
 import json
 import time
 from typing import Dict, Optional, Any
-from config_manager import ConfigManager
+from .config_manager import ConfigManager
 
 
 class AIService:

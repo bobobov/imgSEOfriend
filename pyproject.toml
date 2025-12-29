@@ -1,0 +1,68 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "imgseofriend"
+version = "1.0.0"
+description = "AI-powered image SEO optimization tool"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [
+    {name = "ImageSEO Team"}
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Multimedia :: Graphics",
+    "Topic :: Office/Business",
+    "Environment :: X11 Applications :: Qt",
+]
+requires-python = ">=3.8"
+dependencies = [
+    "PySide6>=6.0.0",
+    "requests>=2.25.0",
+    "Pillow>=9.0.0",
+    "pillow-heif>=0.10.0",
+    "cryptography>=3.4.0",
+    "urllib3>=1.26.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=6.0",
+    "black>=22.0",
+    "flake8>=4.0",
+    "mypy>=0.910",
+]
+
+[project.scripts]
+imgseofriend = "imgseofriend.app:main"
+
+[project.urls]
+Homepage = "https://github.com/imageseo/imgseofriend"
+Repository = "https://github.com/imageseo/imgseofriend.git"
+"Bug Tracker" = "https://github.com/imageseo/imgseofriend/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-dir]
+"" = "src"
+
+[tool.black]
+line-length = 88
+target-version = ['py38']
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true

@@ -14,10 +14,10 @@ from PySide6.QtWidgets import (
     QRadioButton, QButtonGroup, QFrame, QSizePolicy,
     QMessageBox, QFileDialog, QProgressBar, QApplication
 )
-from PySide6.QtCore import Qt, QMimeData, QUrl, Signal, QTimer
+from PySide6.QtCore import Qt, QMimeData, QUrl, Signal, QTimer, QPoint
 from PySide6.QtGui import QPixmap, QDragEnterEvent, QDropEvent, QFont, QFocusEvent
 
-from config_manager import ConfigManager
+from .config_manager import ConfigManager
 
 
 class CustomWidthLineEdit(QLineEdit):
@@ -37,9 +37,9 @@ class CustomWidthLineEdit(QLineEdit):
             self.parent_window.width_custom.setChecked(True)
             self.parent_window.custom_width_input.setEnabled(True)
         super().mousePressEvent(event)
-from settings_dialog import SettingsDialog
-from worker import ImageWorker, ImageResult
-from before_after_widget import BeforeAfterWidget
+from .settings_dialog import SettingsDialog
+from .worker import ImageWorker, ImageResult
+from .before_after_widget import BeforeAfterWidget
 
 
 class ImageDropLabel(QLabel):
