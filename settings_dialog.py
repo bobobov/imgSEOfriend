@@ -1,6 +1,6 @@
 from PySide6.QtWidgets import (QDialog, QVBoxLayout, QHBoxLayout, QFormLayout, 
                                QLineEdit, QPushButton, QTextEdit, QMessageBox,
-                               QGroupBox, QLabel, QSpinBox)
+                               QGroupBox, QLabel, QSpinBox, QSlider)
 from PySide6.QtCore import Qt, Signal
 from PySide6.QtGui import QFont
 from config_manager import ConfigManager
@@ -59,7 +59,7 @@ class SettingsDialog(QDialog):
         
         # System Prompt
         self.system_prompt_input = QTextEdit()
-        self.system_prompt_input.setMaximumHeight(100)
+        self.system_prompt_input.setMaximumHeight(300)  # 增加约10行高度 (100 + 200)
         self.system_prompt_input.setMinimumWidth(400)  # 加倍宽度
         self.system_prompt_input.setPlaceholderText("You are an SEO assistant.")
         prompt_layout.addRow("System Prompt:", self.system_prompt_input)
@@ -74,12 +74,27 @@ class SettingsDialog(QDialog):
         
         
         # Output Quality
-        self.output_quality_spin = QSpinBox()
-        self.output_quality_spin.setMinimum(10)
-        self.output_quality_spin.setMaximum(100)
-        self.output_quality_spin.setMinimumWidth(400)  # 加倍宽度
-        self.output_quality_spin.setSuffix(" %")
-        output_layout.addRow("WebP Quality:", self.output_quality_spin)
+        quality_layout = QHBoxLayout()
+        
+        self.output_quality_slider = QSlider(Qt.Horizontal)
+        self.output_quality_slider.setMinimum(10)
+        self.output_quality_slider.setMaximum(100)
+        self.output_quality_slider.setMinimumWidth(300)  # 滑块宽度
+        self.output_quality_slider.setValue(80)  # 默认值
+        
+        self.output_quality_label = QLabel("80 %")
+        self.output_quality_label.setMinimumWidth(50)  # 标签宽度
+        self.output_quality_label.setAlignment(Qt.AlignRight | Qt.AlignVCenter)
+        
+        # 连接滑块值变化信号
+        self.output_quality_slider.valueChanged.connect(
+            lambda value: self.output_quality_label.setText(f"{value} %")
+        )
+        
+        quality_layout.addWidget(self.output_quality_slider)
+        quality_layout.addWidget(self.output_quality_label)
+        
+        output_layout.addRow("WebP Quality:", quality_layout)
         
         output_group.setLayout(output_layout)
         layout.addWidget(output_group)
@@ -113,7 +128,11 @@ class SettingsDialog(QDialog):
         self.api_key_input.setText(self.config_manager.get_api_key())
         self.model_name_input.setText(self.config_manager.get_model_name())
         self.system_prompt_input.setPlainText(self.config_manager.get_system_prompt())
-        self.output_quality_spin.setValue(self.config_manager.get_output_quality())
+        
+        # 加载WebP Quality设置
+        quality_value = self.config_manager.get_output_quality()
+        self.output_quality_slider.setValue(quality_value)
+        self.output_quality_label.setText(f"{quality_value} %")
     
     def save_settings(self):
         """保存界面设置"""
@@ -121,7 +140,7 @@ class SettingsDialog(QDialog):
         self.config_manager.save_api_key(self.api_key_input.text().strip())
         self.config_manager.save_model_name(self.model_name_input.text().strip())
         self.config_manager.save_system_prompt(self.system_prompt_input.toPlainText().strip())
-        self.config_manager.save_output_quality(self.output_quality_spin.value())
+        self.config_manager.save_output_quality(self.output_quality_slider.value())
     
     def test_connection(self):
         """测试连接"""
@@ -197,5 +216,5 @@ class SettingsDialog(QDialog):
             "api_key": self.api_key_input.text().strip(),
             "model_name": self.model_name_input.text().strip(),
             "system_prompt": self.system_prompt_input.toPlainText().strip(),
-            "output_quality": self.output_quality_spin.value()
+            "output_quality": self.output_quality_slider.value()
         }
