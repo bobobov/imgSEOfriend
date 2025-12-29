@@ -58,7 +58,7 @@ class MainWindow(QMainWindow):
     def on_settings_changed(self):
         """设置变更时刷新显示"""
         self.refresh_config_info()
-        print("Settings have been updated!")
+
     
     def refresh_config_info(self):
         """刷新配置信息显示"""

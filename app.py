@@ -18,9 +18,9 @@ def main():
         with open("dark_theme.qss", "r", encoding="utf-8") as style_file:
             app.setStyleSheet(style_file.read())
     except FileNotFoundError:
-        print("Warning: dark_theme.qss not found, using default style")
-    except Exception as e:
-        print(f"Error loading style sheet: {e}")
+        pass  # 样式文件缺失，使用默认样式
+    except Exception:
+        pass  # 样式加载失败，使用默认样式
     
     # 设置应用程序信息
     app.setApplicationName("Image SEO Optimizer")

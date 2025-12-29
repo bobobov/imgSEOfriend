@@ -72,8 +72,8 @@ class BeforeAfterWidget(QWidget):
         try:
             if file_path and os.path.exists(file_path):
                 return os.path.getsize(file_path)
-        except Exception as e:
-            print(f"Error getting file size for {file_path}: {e}")
+        except Exception:
+            pass
         return 0
     
     def get_image_dimensions(self, file_path: str) -> tuple:
@@ -83,8 +83,8 @@ class BeforeAfterWidget(QWidget):
                 # 使用 PIL 只读取图片头部信息获取尺寸，不加载整个图片
                 with Image.open(file_path) as img:
                     return (img.width, img.height)
-        except Exception as e:
-            print(f"Error getting image dimensions for {file_path}: {e}")
+        except Exception:
+            pass
         return None
     
     def _load_file_info_async(self, image_type: str, file_path: str):
@@ -105,8 +105,8 @@ class BeforeAfterWidget(QWidget):
             
             # 更新显示
             self.update()
-        except Exception as e:
-            print(f"Error in async file info loading: {e}")
+        except Exception:
+            pass
     
     def load_image_with_orientation(self, image_path: str) -> QPixmap:
         """加载图片并正确处理EXIF方向信息 - 优化版本"""
@@ -123,8 +123,7 @@ class BeforeAfterWidget(QWidget):
             # 如果QPixmap加载失败，回退到原始方法
             return QPixmap(image_path)
                 
-        except Exception as e:
-            print(f"Error loading image with orientation: {e}")
+        except Exception:
             # 如果出错，回退到原始方法
             return QPixmap(image_path)
     
@@ -180,8 +179,7 @@ class BeforeAfterWidget(QWidget):
                 
                 return QPixmap.fromImage(qimage)
                 
-        except Exception as e:
-            print(f"Error loading HEIC with orientation: {e}")
+        except Exception:
             # 如果出错，回退到原始方法
             return QPixmap(image_path)
     
@@ -210,8 +208,8 @@ class BeforeAfterWidget(QWidget):
             else:
                 print("Warning: Failed to load images")
                 return False
-        except Exception as e:
-            print(f"Error loading images: {e}")
+        except Exception:
+            pass
             return False
     
     def set_before_image(self, path: str):
@@ -230,8 +228,8 @@ class BeforeAfterWidget(QWidget):
                 from PySide6.QtCore import QTimer
                 QTimer.singleShot(10, lambda: self._load_file_info_async('before', path))
                 return True
-        except Exception as e:
-            print(f"Error loading before image: {e}")
+        except Exception:
+            pass
         return False
     
     def set_after_image(self, path: str):
@@ -249,8 +247,8 @@ class BeforeAfterWidget(QWidget):
                 from PySide6.QtCore import QTimer
                 QTimer.singleShot(10, lambda: self._load_file_info_async('after', path))
                 return True
-        except Exception as e:
-            print(f"Error loading after image: {e}")
+        except Exception:
+            pass
         return False
     
     def set_divider_position(self, position: float):

@@ -182,8 +182,8 @@ class ImageWorker(QThread):
             )
             return result
                 
-        except Exception as e:
-            print(f"[WORKER] Exception in _process_image: {e}")
+        except Exception:
+            pass
             import traceback
             traceback.print_exc()
             

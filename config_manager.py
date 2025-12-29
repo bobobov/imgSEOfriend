@@ -44,8 +44,7 @@ class ConfigManager:
             
             self.cipher = Fernet(key)
         except ImportError:
-            print("警告: 未安装 cryptography，将使用明文存储")
-            self.cipher = None
+              self.cipher = None
     
     def _load_encrypted_config(self) -> dict:
         """加载加密配置"""
@@ -58,8 +57,8 @@ class ConfigManager:
             
             decrypted_data = self.cipher.decrypt(encrypted_data)
             return json.loads(decrypted_data.decode())
-        except Exception as e:
-            print(f"加载加密配置失败: {e}")
+        except Exception:
+            pass
             return {}
     
     def _save_encrypted_config(self, config: dict):
@@ -77,8 +76,8 @@ class ConfigManager:
             # 设置文件权限（仅用户可读写）
             os.chmod(self.config_file, 0o600)
             return True
-        except Exception as e:
-            print(f"保存加密配置失败: {e}")
+        except Exception:
+            pass
             return False
     
     def save_api_base_url(self, url: str):

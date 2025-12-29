@@ -980,7 +980,8 @@ class MainWindow(QMainWindow):
         self.current_worker = ImageWorker(
             image_path=self.image_display.current_image_path,
             keyword=keyword,
-            target_width=target_width
+            target_width=target_width,
+            process_mode="with_ai"
         )
         
         # 连接信号
